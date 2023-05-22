@@ -10,6 +10,7 @@ spec:
   - interval: 30s
     port: 8080-tcp
     scheme: http
+    path: /metrics2
   selector:
     matchLabels:
       app: front-test

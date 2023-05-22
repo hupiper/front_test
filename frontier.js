@@ -45,11 +45,11 @@ app.get('/metrics', (request, response) => {
 
 app.get('/metrics2', (request, response) => {
   response.set('Content-Type', client.register.contentType);
-  response.send(`nodejs_heap_space_size_total_bytes{space="new"} 1048576 1497945862862
-  nodejs_heap_space_size_total_bytes{space="old"} 9818112 1497945862862
-  nodejs_heap_space_size_total_bytes{space="code"} 3784704 1497945862862
-  nodejs_heap_space_size_total_bytes{space="map"} 1069056 1497945862862
-  nodejs_heap_space_size_total_bytes{space="large_object"} 0 1497945862862`);
+  response.send(`nodejs_heap_space_size_total_bytes{space="new"} 1048576 1684782791
+nodejs_heap_space_size_total_bytes{space="old"} 9818112 1684782791
+nodejs_heap_space_size_total_bytes{space="code"} 3784704 1684782791
+nodejs_heap_space_size_total_bytes{space="map"} 1069056 1684782791
+nodejs_heap_space_size_total_bytes{space="large_object"} 0 1684782791`);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
