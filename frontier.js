@@ -46,7 +46,7 @@ app.use('/api/greeting', (request, response) => {
   end({ method: request.method, 'status_code': 200 });
   // After each response
   httpRequestDurationMicroseconds
-  .labels(req.route.path)
+  .labels(request.route.path)
   .observe(responseTimeInMs)
 });
 
