@@ -44,10 +44,6 @@ app.use('/api/greeting', (request, response) => {
   response.send({content: `Hello, ${name}!`});
   // stop the timer
   end({ method: request.method, 'status_code': 200 });
-  // After each response
-  //httpRequestDurationMicroseconds
-  //.labels(request.route.path)
-  //.observe(responseTimeInMs)
 });
 
 // expose our metrics at the default URL for Prometheus
@@ -69,11 +65,5 @@ http_request_duration_ms_bucket{le="250",code="200",route="/",method="GET"} 3001
 http_request_duration_ms_bucket{le="500",code="200",route="/",method="GET"} 3001
 http_request_duration_ms_bucket{le="+Inf",code="200",route="/",method="GET"} 3001`);
 });
-
-// Metrics endpoint
-//app.get('/metrics3', (request, response) => {
-//  response.set('Content-Type', client.register.contentType)
-//  response.end(client.register.metrics())
-//})
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
