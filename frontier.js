@@ -20,6 +20,15 @@ const histogram = new client.Histogram({
   buckets: [0.1, 5, 15, 50, 100, 500]
 });
 
+// histogram type of metrics to collect our APIs’ response time per routes
+const httpRequestDurationMicroseconds = new client.Histogram({
+  name: 'http_request_duration_ms',
+  help: 'Duration of HTTP requests in ms',
+  labelNames: ['route'],
+  // buckets for response time from 0.1ms to 500ms
+  buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500]
+})
+
 // create the express application
 const app = express();
 const port = process.argv[2] || 8080;
@@ -35,6 +44,10 @@ app.use('/api/greeting', (request, response) => {
   response.send({content: `Hello, ${name}!`});
   // stop the timer
   end({ method: request.method, 'status_code': 200 });
+  // After each response
+  httpRequestDurationMicroseconds
+  .labels(req.route.path)
+  .observe(responseTimeInMs)
 });
 
 // expose our metrics at the default URL for Prometheus
@@ -56,5 +69,11 @@ http_request_duration_ms_bucket{le="250",code="200",route="/",method="GET"} 3001
 http_request_duration_ms_bucket{le="500",code="200",route="/",method="GET"} 3001
 http_request_duration_ms_bucket{le="+Inf",code="200",route="/",method="GET"} 3001`);
 });
+
+// Metrics endpoint
+app.get('/metrics3', (req, res) => {
+  res.set('Content-Type', Prometheus.register.contentType)
+  res.end(Prometheus.register.metrics())
+})
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
