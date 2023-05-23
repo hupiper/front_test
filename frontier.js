@@ -49,7 +49,12 @@ app.get('/metrics2', (request, response) => {
 nodejs_heap_space_size_total_bytes{space="old"} 9818112 1684782791
 nodejs_heap_space_size_total_bytes{space="code"} 3784704 1684782791
 nodejs_heap_space_size_total_bytes{space="map"} 1069056 1684782791
-nodejs_heap_space_size_total_bytes{space="large_object"} 0 1684782791`);
+nodejs_heap_space_size_total_bytes{space="large_object"} 0 1684782791
+http_request_duration_ms_bucket{le="10",code="200",route="/",method="GET"} 58
+http_request_duration_ms_bucket{le="100",code="200",route="/",method="GET"} 1476
+http_request_duration_ms_bucket{le="250",code="200",route="/",method="GET"} 3001
+http_request_duration_ms_bucket{le="500",code="200",route="/",method="GET"} 3001
+http_request_duration_ms_bucket{le="+Inf",code="200",route="/",method="GET"} 3001`);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
