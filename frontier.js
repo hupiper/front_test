@@ -72,8 +72,8 @@ http_request_duration_ms_bucket{le="+Inf",code="200",route="/",method="GET"} 300
 
 // Metrics endpoint
 app.get('/metrics3', (request, response) => {
-  res.set('Content-Type', client.register.contentType)
-  res.end(client.register.metrics())
+  response.set('Content-Type', client.register.contentType)
+  response.end(client.register.metrics())
 })
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
